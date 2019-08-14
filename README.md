@@ -1,4 +1,4 @@
-# [platzi-trips](https://user-images.githubusercontent.com/5593590/63033894-abf91b00-beb8-11e9-8780-7342cbe7e972.png)
+# ![platzi-trips](https://user-images.githubusercontent.com/5593590/63033894-abf91b00-beb8-11e9-8780-7342cbe7e972.png)
 Flutter project for iOS and Android realized during a Flutter course of Platzi
 
 ## Screenshots
