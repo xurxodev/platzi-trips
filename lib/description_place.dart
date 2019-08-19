@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'button_purple.dart';
+
 class DescriptionPlace extends StatelessWidget {
   final String namePlace;
   final int stars;
@@ -17,7 +19,7 @@ class DescriptionPlace extends StatelessWidget {
 
     final starHalf = Container(
       margin: EdgeInsets.only(
-        top: 423.0,
+        top: 323.0,
         right: 3.0,
       ),
       child: Icon(
@@ -28,7 +30,7 @@ class DescriptionPlace extends StatelessWidget {
 
     final starBorder = Container(
       margin: EdgeInsets.only(
-        top: 423.0,
+        top: 323.0,
         right: 3.0,
       ),
       child: Icon(
@@ -39,7 +41,7 @@ class DescriptionPlace extends StatelessWidget {
 
     final star = Container(
       margin: EdgeInsets.only(
-        top: 423.0,
+        top: 323.0,
         right: 3.0,
       ),
       child: Icon(
@@ -51,7 +53,7 @@ class DescriptionPlace extends StatelessWidget {
     final titleStars = Row(children: <Widget>[
       Container(
         margin: EdgeInsets.only(
-          top: 420.0,
+          top: 320.0,
           left: 20.0,
           right: 20.0,
         ),
@@ -94,9 +96,11 @@ class DescriptionPlace extends StatelessWidget {
     );
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         titleStars,
         description,
+        ButtonPurple("Navegando"),
       ],
     );
   }

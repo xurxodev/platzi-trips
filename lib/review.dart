@@ -15,7 +15,11 @@ class Review extends StatelessWidget {
     final infoWidget = createInfoWidget();
 
     return Container(
-        margin: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+        margin: EdgeInsets.only(
+          top: 20.0,
+          left: 20.0,
+          right: 20.0,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -24,7 +28,6 @@ class Review extends StatelessWidget {
           ],
         ));
   }
-
 
   Widget createUserPhotoWidget() {
     final photoWidget = Container(
