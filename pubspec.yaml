@@ -72,9 +72,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 
   assets:
-    - assets/images/ann.jpg
-    - assets/images/girl.jpg
-    - assets/images/people.jpg
+    - assets/images/
 
   fonts:
     - family: Lato
