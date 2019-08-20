@@ -29,7 +29,7 @@ class ProfileHeader extends StatelessWidget {
               title
             ],
           ),
-          UserInfo('assets/images/ann.jpg', 'Anahí Salgado','anahi@platzi.com'),
+          UserInfo('assets/images/xurxodev.jpg', 'Jorge Sánchez','xurxodev@gmail.com'),
           ButtonsBar()
         ],
       ),
