@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'user_info.dart';
-import 'button_bar.dart';
+import 'package:platzi_trips/user/ui/widgets/button_bar.dart';
+import 'package:platzi_trips/user/ui/widgets/user_info.dart';
 
 class ProfileHeader extends StatelessWidget {
   @override
@@ -35,5 +35,4 @@ class ProfileHeader extends StatelessWidget {
       ),
     );
   }
-
 }
