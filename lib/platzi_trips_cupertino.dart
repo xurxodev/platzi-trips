@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips/Place/ui/screens/home_trips.dart';
 import 'package:platzi_trips/Place/ui/screens/search_trips.dart';
-import 'package:platzi_trips/User/bloc/bloc_user.dart';
-import 'package:platzi_trips/User/ui/screens/profile_trips.dart';
+import 'package:platzi_trips/user/bloc/bloc_user.dart';
+import 'package:platzi_trips/user/ui/screens/profile_trips.dart';
 
 class PlatziTripsCupertino extends StatelessWidget {
 
@@ -44,12 +44,7 @@ class PlatziTripsCupertino extends StatelessWidget {
               break;
             case 2:
               return CupertinoTabView(
-                builder: (BuildContext context) {
-                  return BlocProvider<UserBloc>(
-                    bloc: UserBloc(),
-                    child: ProfileTrips(),
-                  );
-                },
+                builder: (BuildContext context) => ProfileTrips(),
               );
               break;
 
