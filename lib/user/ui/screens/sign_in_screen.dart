@@ -2,10 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips/platzi_trips_cupertino.dart';
+import 'package:platzi_trips/user/model/user.dart';
 import 'package:platzi_trips/widgets/button_green.dart';
 import 'package:platzi_trips/widgets/gradient_back.dart';
 import 'package:platzi_trips/user/bloc/bloc_user.dart';
-
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -16,9 +16,12 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreen extends State<SignInScreen> {
   UserBloc userBloc;
+  double screenWidth;
+
 
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
     userBloc = BlocProvider.of<UserBloc>(context);
     return _handleCurrentSession();
   }
@@ -42,23 +45,37 @@ class _SignInScreen extends State<SignInScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          GradientBack("", null),
+          GradientBack(
+            height: null,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "Welcome \n This is your Travel App",
-                style: TextStyle(
-                    fontSize: 37.0,
-                    fontFamily: "Lato",
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+              Flexible(
+                child: Container(
+                  margin: EdgeInsets.only(
+                    left: 10.0,
+                  ),
+                  width: screenWidth,
+                  child: Text(
+                    "Welcome \n This is your Travel App",
+                    style: TextStyle(
+                        fontSize: 37.0,
+                        fontFamily: "Lato",
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
               ButtonGreen(
                 text: "Login with Gmail",
                 onPressed: () {
                   userBloc.signIn().then((FirebaseUser user) =>
-                      print("El usuario es ${user.displayName}"));
+                      userBloc.updateUserData(User(
+                          uid: user.uid,
+                          name: user.displayName,
+                          email: user.email,
+                          photoURL: user.photoUrl)));
                 },
                 width: 300.0,
                 height: 50.0,
