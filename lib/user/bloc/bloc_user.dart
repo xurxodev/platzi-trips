@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips/place/model/place.dart';
+import 'package:platzi_trips/place/repository/firebase_storage_repository.dart';
 import 'package:platzi_trips/user/model/user.dart';
 import 'package:platzi_trips/user/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +26,7 @@ class UserBloc implements Bloc {
     streamFirebase.listen((FirebaseUser firebaseUser) {
       if (firebaseUser != null) {
         user = User(
+            uid: firebaseUser.uid,
             name: firebaseUser.displayName,
             email: firebaseUser.email,
             photoURL: firebaseUser.photoUrl);
@@ -46,6 +51,12 @@ class UserBloc implements Bloc {
   //3. Update place
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceData(place);
+
+  //4. uploadFile
+  final _firebaseStorageRepository = FirebaseStorageRepository();
+
+  Future<StorageUploadTask> uploadFile(String path, File image) =>
+      _firebaseStorageRepository.uploadFile(path, image);
 
   signOut() {
     _auth_repository.signOut();

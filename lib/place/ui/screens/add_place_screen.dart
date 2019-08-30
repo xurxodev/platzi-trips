@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips/place/model/place.dart';
@@ -105,19 +106,33 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                     onPressed: () {
                       //1. Firebase Storage
                       //url -
-
-                      //2. Cloud Firestore
-                      //Place - title, description, url, userOwner, likes
+                      String path =
+                          "${userBloc.getCurrentUser().uid}/${DateTime.now().toString()}.jpg";
+                      //1. Firebase Storage
+                      //url -
                       userBloc
-                          .updatePlaceData(
-                        Place(
-                            name: _controllerTitlePlace.text,
-                            description: _controllerDescriptionPlace.text,
-                            likes: 0),
-                      )
-                          .whenComplete(() {
-                        print("TERMINO");
-                        Navigator.pop(context);
+                          .uploadFile(path, widget.image)
+                          .then((StorageUploadTask storageUploadTask) {
+                        storageUploadTask.onComplete
+                            .then((StorageTaskSnapshot snapshot) {
+                          snapshot.ref.getDownloadURL().then((urlImage) {
+                            print("URLIMAGE: $urlImage");
+
+                            //2. Cloud Firestore
+                            //Place - title, description, url, userOwner, likes
+                            userBloc
+                                .updatePlaceData(Place(
+                              name: _controllerTitlePlace.text,
+                              description: _controllerDescriptionPlace.text,
+                              urlImage: urlImage,
+                              likes: 0,
+                            ))
+                                .whenComplete(() {
+                              print("TERMINO");
+                              Navigator.pop(context);
+                            });
+                          });
+                        });
                       });
                     },
                   ),

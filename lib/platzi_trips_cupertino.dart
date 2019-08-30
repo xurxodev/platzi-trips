@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:platzi_trips/Place/ui/screens/home_trips.dart';
-import 'package:platzi_trips/Place/ui/screens/search_trips.dart';
-import 'package:platzi_trips/user/bloc/bloc_user.dart';
+import 'package:platzi_trips/place/ui/screens/home_trips.dart';
+import 'package:platzi_trips/place/ui/screens/search_trips.dart';
 import 'package:platzi_trips/user/ui/screens/profile_trips.dart';
 
 class PlatziTripsCupertino extends StatelessWidget {
