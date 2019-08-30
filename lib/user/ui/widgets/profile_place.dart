@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:platzi_trips/place/model/place.dart';
 import 'profile_place_info.dart';
@@ -5,8 +6,9 @@ import 'profile_place_info.dart';
 class ProfilePlace extends StatelessWidget {
 
   Place place;
+  bool internet = true;
 
-  ProfilePlace(this.place);
+  ProfilePlace(this.place,this.internet);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,9 @@ class ProfilePlace extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: NetworkImage(place.urlImage)
+              image: internet
+                  ? CachedNetworkImageProvider(place.urlImage)
+                  : AssetImage(place.urlImage)
           ),
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           color: Colors.red,

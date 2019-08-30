@@ -19,6 +19,7 @@ class CardImageList extends StatelessWidget {
             iconData: Icons.favorite_border,
             width: width,
             height: height,
+            internet: false,
             left: left,
           ),
           CardImageWithFabIcon(
@@ -26,6 +27,7 @@ class CardImageList extends StatelessWidget {
             iconData: Icons.favorite_border,
             width: width,
             height: height,
+            internet: false,
             left: left,
           ),
           CardImageWithFabIcon(
@@ -33,6 +35,7 @@ class CardImageList extends StatelessWidget {
             iconData: Icons.favorite_border,
             width: width,
             height: height,
+            internet: false,
             left: left,
           ),
           CardImageWithFabIcon(
@@ -40,6 +43,7 @@ class CardImageList extends StatelessWidget {
             iconData: Icons.favorite_border,
             width: width,
             height: height,
+            internet: false,
             left: left,
           ),
           CardImageWithFabIcon(
@@ -47,6 +51,7 @@ class CardImageList extends StatelessWidget {
             iconData: Icons.favorite_border,
             width: width,
             height: height,
+            internet: false,
             left: left,
           ),
           CardImageWithFabIcon(
@@ -54,6 +59,7 @@ class CardImageList extends StatelessWidget {
             iconData: Icons.favorite_border,
             width: width,
             height: height,
+            internet: false,
             left: left,
           ),
         ],

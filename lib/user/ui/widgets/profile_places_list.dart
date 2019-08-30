@@ -23,8 +23,8 @@ class ProfilePlacesList extends StatelessWidget {
       margin: EdgeInsets.only(top: 10.0, left: 20.0, right: 20.0, bottom: 10.0),
       child: Column(
         children: <Widget>[
-          ProfilePlace(place),
-          ProfilePlace(place2),
+          ProfilePlace(place,true),
+          ProfilePlace(place2,true),
         ],
       ),
     );

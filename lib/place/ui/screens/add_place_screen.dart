@@ -74,6 +74,7 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                     iconData: Icons.camera_alt,
                     width: 350.0,
                     height: 250.0,
+                    internet: false,
                     left: 0,
                   ),
                 ), //Foto
