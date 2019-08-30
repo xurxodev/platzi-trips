@@ -65,27 +65,43 @@ class CloudFirestoreAPI {
     return profilePlaces;
   }
 
-  List<CardImageWithFabIcon> buildPlaces(List<DocumentSnapshot> placesListSnapshot){
-    List<CardImageWithFabIcon> placesCard = List<CardImageWithFabIcon>();
-    double width = 300.0;
-    double height = 350.0;
-    double left = 20.0;
-    IconData iconData = Icons.favorite_border;
+  List<Place> buildPlaces(
+      List<DocumentSnapshot> placesListSnapshot, User user) {
+    List<Place> places = List<Place>();
 
     placesListSnapshot.forEach((p) {
-      placesCard.add(CardImageWithFabIcon(
-          pathImage: p.data["urlImage"],
-          width: width,
-          height: height,
-          left: left,
-          onPressedFabIcon: (){
-
-          },
-          iconData: iconData
-      )
-      );
+      Place place = Place(
+          uid: p.documentID,
+          name: p.data["name"],
+          description: p.data["description"],
+          urlImage: p.data["urlImage"],
+          likes: p.data["likes"]);
+      List usersLikedRefs = p.data["usersLiked"];
+      place.liked = false;
+      usersLikedRefs?.forEach((drUL) {
+        if (user.uid == drUL.documentID) {
+          place.liked = true;
+        }
+      });
+      places.add(place);
     });
+    return places;
+  }
 
-    return placesCard;
+  Future likePlace(Place place, String uid) async {
+    await _db
+        .collection(places)
+        .document(place.uid)
+        .get()
+        .then((DocumentSnapshot ds) {
+      int likes = ds.data["likes"];
+
+      _db.collection(places).document(place.uid).updateData({
+        'likes': place.liked ? likes + 1 : likes - 1,
+        'usersLiked': place.liked
+            ? FieldValue.arrayUnion([_db.document("${users}/${uid}")])
+            : FieldValue.arrayRemove([_db.document("${users}/${uid}")])
+      });
+    });
   }
 }
