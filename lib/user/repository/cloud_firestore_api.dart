@@ -4,40 +4,46 @@ import 'package:platzi_trips/place/model/place.dart';
 import 'package:platzi_trips/user/model/user.dart';
 
 class CloudFirestoreAPI {
+  static const String users = "users";
+  static const String places = "places";
 
-    static const String users = "users";
-    static const String places = "places";
+  final Firestore _db = Firestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-    final Firestore _db = Firestore.instance;
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+  void updateUserData(User user) async {
+    DocumentReference ref = _db.collection(users).document(user.uid);
+    return await ref.setData({
+      'uid': user.uid,
+      'name': user.name,
+      'email': user.email,
+      'photoURL': user.photoURL,
+      'myPlaces': user.myPlaces,
+      'myFavoritePlaces': user.myFavoritePlaces,
+      'lastSignIn': DateTime.now()
+    }, merge: true);
+  }
 
-    void updateUserData(User user) async{
-        DocumentReference ref = _db.collection(users).document(user.uid);
-        return await ref.setData({
-            'uid': user.uid,
-            'name': user.name,
-            'email': user.email,
-            'photoURL': user.photoURL,
-            'myPlaces': user.myPlaces,
-            'myFavoritePlaces': user.myFavoritePlaces,
-            'lastSignIn': DateTime.now()
+  Future<void> updatePlaceData(Place place) async {
+    CollectionReference refPlaces = _db.collection(places);
 
-        }, merge: true);
+    FirebaseUser firebaseUser = await _auth.currentUser();
 
-    }
+    await refPlaces.add({
+      'name': place.name,
+      'description': place.description,
+      'likes': place.likes,
+      'userOwner': _db.document("$users/${firebaseUser.uid}"),
+      'urlImage': place.urlImage
+    }).then((DocumentReference dr) {
+      dr.get().then((DocumentSnapshot ds) {
+        DocumentReference refUser =
+            _db.collection(users).document(firebaseUser.uid);
 
-    Future<void> updatePlaceData(Place place) async {
-        CollectionReference refPlaces = _db.collection(places);
-
-        String uid = (await _auth.currentUser()).uid;
-
-        await refPlaces.add({
-            'name': place.name,
-            'description': place.description,
-            'likes': place.likes,
-            'userOwner': "$users/$uid",
-            'urlImage': place.urlImage
+        refUser.updateData({
+          'myPlaces':
+              FieldValue.arrayUnion([_db.document("$places/${ds.documentID}")])
         });
-    }
-
+      });
+    });
+  }
 }
