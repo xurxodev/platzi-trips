@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips/place/model/place.dart';
 import 'package:platzi_trips/place/repository/firebase_storage_repository.dart';
+import 'package:platzi_trips/place/ui/widgets/card_image.dart';
 import 'package:platzi_trips/user/model/user.dart';
 import 'package:platzi_trips/user/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -55,20 +56,25 @@ class UserBloc implements Bloc {
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceData(place);
 
-
   Stream<QuerySnapshot> placesListStream =
       Firestore.instance.collection(CloudFirestoreAPI.places).snapshots();
 
   Stream<QuerySnapshot> get placesStream => placesListStream;
 
-  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+  List<CardImageWithFabIcon> buildPlaces(
+          List<DocumentSnapshot> placesListSnapshot) =>
       _cloudFirestoreRepository.buildPlaces(placesListSnapshot);
 
   //4. MyPlaces
-  Stream<QuerySnapshot> myPlacesListSream(String uid) =>
-      Firestore.instance.collection(CloudFirestoreAPI.places)
-          .where("userOwner", isEqualTo: Firestore.instance.document("${CloudFirestoreAPI.users}/${uid}"))
-          .snapshots();
+  Stream<QuerySnapshot> myPlacesListSream(String uid) => Firestore.instance
+      .collection(CloudFirestoreAPI.places)
+      .where("userOwner",
+          isEqualTo:
+              Firestore.instance.document("${CloudFirestoreAPI.users}/${uid}"))
+      .snapshots();
+
+  List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFirestoreRepository.buildMyPlaces(placesListSnapshot);
 
   //5. uploadFile
   final _firebaseStorageRepository = FirebaseStorageRepository();

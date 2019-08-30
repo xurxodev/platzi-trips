@@ -34,7 +34,7 @@ class CardImageWithFabIcon extends StatelessWidget {
               fit: BoxFit.cover,
               image: internet
                   ? CachedNetworkImageProvider(pathImage)
-                  : AssetImage(pathImage)),
+                  : NetworkImage(pathImage)),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           shape: BoxShape.rectangle,
           boxShadow: <BoxShadow>[

@@ -44,7 +44,6 @@ class ProfileTrips extends StatelessWidget {
           ListView(
             children: <Widget>[
               Text("Usuario no logeado. Haz Login"),
-              ProfileHeader(user: user)
             ],
           ),
         ],
