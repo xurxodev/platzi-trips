@@ -48,20 +48,18 @@ class CloudFirestoreAPI {
     });
   }
 
-  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot){
+  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) {
     List<ProfilePlace> profilePlaces = List<ProfilePlace>();
     placesListSnapshot.forEach((p) {
-
       profilePlaces.add(ProfilePlace(
           Place(
               name: p.data['name'],
               description: p.data['description'],
-              urlImage: p.data['urlImage']),true));
-
+              urlImage: p.data['urlImage'],
+              likes: p.data['likes']),
+          true));
     });
 
     return profilePlaces;
-
-
   }
 }
