@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:platzi_trips/user/model/user.dart';
 
 class Place {
 
@@ -8,7 +7,7 @@ class Place {
   String description;
   String urlImage;
   int likes;
-  User userOwner;
+  //User userOwner;
 
   Place({
     Key key,
@@ -17,6 +16,6 @@ class Place {
     @required this.description,
     @required this.urlImage,
     this.likes,
-    @required this.userOwner
+    //@required this.userOwner
   });
 }

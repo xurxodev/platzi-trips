@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:platzi_trips/place/model/place.dart';
@@ -7,7 +8,9 @@ import 'package:platzi_trips/place/repository/firebase_storage_repository.dart';
 import 'package:platzi_trips/user/model/user.dart';
 import 'package:platzi_trips/user/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:platzi_trips/user/repository/cloud_firestore_api.dart';
 import 'package:platzi_trips/user/repository/cloud_firestore_repository.dart';
+import 'package:platzi_trips/user/ui/widgets/profile_place.dart';
 
 class UserBloc implements Bloc {
   User user;
@@ -51,6 +54,15 @@ class UserBloc implements Bloc {
   //3. Update place
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceData(place);
+
+
+  Stream<QuerySnapshot> placesListStream =
+      Firestore.instance.collection(CloudFirestoreAPI.places).snapshots();
+
+  Stream<QuerySnapshot> get placesStream => placesListStream;
+
+  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFirestoreRepository.buildPlaces(placesListSnapshot);
 
   //4. uploadFile
   final _firebaseStorageRepository = FirebaseStorageRepository();
